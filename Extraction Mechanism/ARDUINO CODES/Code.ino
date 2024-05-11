@@ -28,14 +28,14 @@ const long interval = 50;
 int stepsPerRevolution = 200;
 int sole = 12; 
 
-// ********** THE ANGLE ARRAY ********** //
 float VerticalAngle[] = {200, 50, 0}; // READINGS FROM OCR, ENDS WITH 0 FOR HOMING.
 float HorizontalAngle[] = {25, 50, 0}; 
-// ********** THE STATE-SPACE MATICES ********** //
+
+// ********** DESCRETIZED STATE-SPACE MATICES ********** //
 BLA::Matrix<2,2> A = {1,0.0035,0.00000042,0.77}; // tstep 0.003s
 BLA::Matrix<2,1> B = {0.000324,0.155};
 BLA::Matrix<1,2> H = {1,0};
-// ********** THE STATE-SPACE MATICES ********** //
+// ********** DESCRETIZED STATE-SPACE MATICES ********** //
 
 // ********** KALMAN FILTER VARIABLES ********** //
 float R = 0.5; // MEASUREMENT NOISE 
@@ -95,6 +95,8 @@ void loop() {
   Matrix<1,1,float> totalStep_Mat = {totalStep};
   // ********** ANGLE MEASUREMENTS CONVERSION ********** //
 
+
+  // ********** PROPORTIONAL/FULL-STATE FEEDBACK ********** //
   if (millis() >= 1000) { 
     VerticalTarget = VerticalAngle[VerticalIndex];
 
@@ -108,9 +110,10 @@ void loop() {
     u = u_mat(0,0);
     u = constrain(u, -max, max); 
   }
+  // ********** PROPORTIONAL/FULL-STATE FEEDBACK ********** //
 
+  
   // ********** KALMAN FILTER ********** //
-
   // *** 1.PREDICT STATE AND ERROR COVARIANCE *** //
   Matrix<2,1> x_hat_k_predict = A * x_hat_k_minus_1 + B * u;
   Matrix<2,2> P_k_predict = A * P_k_minus_1 * (~A) + Q;
@@ -131,12 +134,12 @@ void loop() {
   // ********** KALMAN FILTER ********** //
 
 
-  // ********** PROPORTIONAL CONTROL ********** //
+  // ********** VERTICAL MOVEMENT ********** //
   myStepperL.setSpeed(u);
   myStepperR.setSpeed(u);
   myStepperR.runSpeed();
   myStepperL.runSpeed();
-  // ********** PROPORTIONAL CONTROL ********** //
+  // ********** VERTICAL MOVEMENT ********** //
 
 
   // ********** PRINT RESULTS ********** //
