@@ -1,4 +1,2 @@
-Respository for Bristol Mechanical Engineering Meng final year GIP.
-Group 9, 2024.
-
-Extraction Mechanism(MP)
+## Contents
+Some C++ codes on Arduino UNO, MATLAB codes for plotting and verifying, and simulink files for my final year GIP in Mechanical Engineering
