@@ -5,3 +5,4 @@ These are all parts of the extraction mechansim of an automated pill box:
   <img src="https://github.com/PMY9527/GIP-Group-9-Respository/raw/main/Extraction%20Mechanism/CAD/cad4e.png" alt="Extraction Mechanism CAD">
 
 
+https://www.youtube.com/watch?v=m8C3cHe44UE
